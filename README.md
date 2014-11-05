@@ -1,0 +1,4 @@
+SetupRails
+==
+
+An automated installer
