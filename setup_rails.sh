@@ -77,12 +77,13 @@ cat <<EOF
 ##
 ##########################
 EOF
-#read -p "Press any key to continue..."
+read -p "Press any key to continue..."
 
 ### Installing command-line-tools unless already installed
 if [ ! -d "/Library/Developer/CommandLineTools" ]; then
 	echo "Installing command-line-tools. Click Install (NOT get XCode) when prompted"
 	xcode-select --install
+	read -p "Once the command-line-tools installer completes, Press any key to continue:"
 fi
 
 ### echo for TESTING ONLY ###
