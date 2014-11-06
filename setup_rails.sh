@@ -48,6 +48,7 @@ if [ "$UNAME" = "Darwin" ] ; then
     echo "Only OSX Yosemite and Mavericks are supported at this time."
     exit 1
   fi
+fi
 
 clear
 cat <<EOF
@@ -76,8 +77,7 @@ cat <<EOF
 ##
 ##########################
 EOF
-fi
-read -p "Press any key to continue..."
+#read -p "Press any key to continue..."
 
 ### Installing command-line-tools unless already installed
 if [ ! -d "/Library/Developer/CommandLineTools" ]; then
