@@ -50,6 +50,41 @@ if [ "$UNAME" = "Darwin" ] ; then
   fi
 fi
 
+clear
+cat <<EOF
+##########################
+##########################
+##  Welcome to SetupRails!
+##
+##  This installer was designed to ease the installation process
+##  for a typical Ruby on Rails development machine.
+##
+##  You may be prompted several times for your password as packages
+##  are installed on your system. If you're new to the Terminal command line
+##  you may notice that no visual feedback is provided when typing your
+##  password. This is normal :)
+##
+##  Before we get started, here is a quick rundown of the steps
+##  and the packages that get installed:
+##
+## 	1.) XCode command-line-tools (you will see a confirmation box - click Install)
+## 	2.) Homebrew (dubbed 'the missing package manager for OSX')
+## 	3.) Ruby (the latest stable version will be installed via rbenv)
+## 	4.) Bundler 
+## 	5.) SQLite3
+## 	6.) Node
+## 	7.) Rails (last but certainly not least!!)
+##
+##########################
+EOF
+read -p "Press any key to continue..."
+
+### Installing command-line-tools unless already installed
+if [ ! -d "/Library/Developer/CommandLineTools" ]; then
+	echo "Installing command-line-tools. Click Install (NOT get XCode) when prompted"
+	xcode-select --install
+fi
+
 ### echo for TESTING ONLY ###
 echo "$UNAME"
 echo "$OSX_VERSION"
