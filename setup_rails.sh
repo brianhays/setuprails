@@ -67,11 +67,11 @@ cat <<EOF
 ##
 ##  1.) XCode command-line-tools (you will see a confirmation box - click Install)
 ##  2.) Homebrew (dubbed 'the missing package manager for OSX')
-##  3.) Ruby (the latest stable version will be installed via rbenv)
+##  3.) rbenv (to install and manage Ruby versions)
 ##  4.) Bundler 
 ##  5.) SQLite3
 ##  6.) Node
-##  7.) Rails (last but certainly not least!!)
+##  7.) Rails (the latest & greatest stable version)
 ##
 ##########################
 EOF
@@ -86,12 +86,36 @@ fi
 
 ### Installing Homebrew or updating if already installed
 if ! type "brew" &> /dev/null; then
-  echo "Installing Homebrew..."
+  echo "Installing Homebrew (note: you be prompted for your password during install)..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  read -p "Press any key to run 'brew doctor' and continue with the SetupRails script..."
+  brew doctor
 else
   echo "updating Homebrew..."
   brew update
 fi
+
+### Installing rbenv and ruby-build (to install and manage Ruby versions)
+echo "Installing rbenv and ruby-build (to install and manage Ruby versions)..."
+if type "rvm" &> /dev/null; then
+  cat <<EOF
+  Yikes! It appears you already have the Ruby manager 'RVM' installed on your system.
+  rbenv is incompatible with RVM. If you want to proceed with installing rbenv,
+  please make sure to fully uninstall RVM and first then re-run the SetupRails installer.
+EOF
+  exit 1
+elif type "rbenv" &> /dev/null; then
+  cat <<EOF
+  Well, it seems that you already have rbenv installed on your system! To avoid potential
+  conflicts, this installer will now exit.
+EOF
+  exit 1
+else
+  brew install rbenv ruby-build
+  echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+  source ~/.bash_profile 
+fi
+
 
 ### echo for TESTING ONLY ###
 echo "$UNAME"
