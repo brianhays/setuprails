@@ -25,8 +25,6 @@ setup_rails () {
 
 ### Now, on to the actual installer...
 
-### NOTE sh NOT bash. This script should be POSIX sh
-
 set -e
 set -u
 
@@ -67,13 +65,13 @@ cat <<EOF
 ##  Before we get started, here is a quick rundown of the steps
 ##  and the packages that get installed:
 ##
-## 	1.) XCode command-line-tools (you will see a confirmation box - click Install)
-## 	2.) Homebrew (dubbed 'the missing package manager for OSX')
-## 	3.) Ruby (the latest stable version will be installed via rbenv)
-## 	4.) Bundler 
-## 	5.) SQLite3
-## 	6.) Node
-## 	7.) Rails (last but certainly not least!!)
+##  1.) XCode command-line-tools (you will see a confirmation box - click Install)
+##  2.) Homebrew (dubbed 'the missing package manager for OSX')
+##  3.) Ruby (the latest stable version will be installed via rbenv)
+##  4.) Bundler 
+##  5.) SQLite3
+##  6.) Node
+##  7.) Rails (last but certainly not least!!)
 ##
 ##########################
 EOF
@@ -81,9 +79,16 @@ read -p "Press any key to continue..."
 
 ### Installing command-line-tools unless already installed
 if [ ! -d "/Library/Developer/CommandLineTools" ]; then
-	echo "Installing command-line-tools. Click Install (NOT get XCode) when prompted"
-	xcode-select --install
-	read -p "Once the command-line-tools installer completes, Press any key to continue:"
+  echo "Installing command-line-tools. Click Install (NOT get XCode) when prompted"
+  xcode-select --install
+  read -p "Once the command-line-tools installer completes, Press any key to continue:"
+fi
+
+### Installing Homebrew or updating if already installed
+if ! type "brew" &> /dev/null; then
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+  brew update
 fi
 
 ### echo for TESTING ONLY ###
