@@ -135,7 +135,7 @@ fi
 
 ### Installing Rails!!! 
 echo "Installing Rails!..."
-gem install rails
+gem install rails --no-ri --no-rdoc
 rbenv rehash
 RAILS_INSTALLED=$(rails -v)
 
