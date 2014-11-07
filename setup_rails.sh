@@ -32,6 +32,7 @@ set -u
 exec 1>&2
 
 RUBY_VERSION=2.1.4
+GEMS_VERSION=2.4.2
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
@@ -69,10 +70,8 @@ cat <<EOF
 ##  1.) XCode command-line-tools (you will see a confirmation box - click Install)
 ##  2.) Homebrew (dubbed 'the missing package manager for OSX')
 ##  3.) rbenv (to install and manage Ruby versions)
-##  4.) Bundler 
-##  5.) SQLite3
-##  6.) Node
-##  7.) Rails (the latest & greatest stable version)
+##  4.) Node (rails requires a javascript runtime)
+##  5.) Rails (the latest & greatest stable version)
 ##
 ##########################
 EOF
@@ -112,15 +111,40 @@ elif ! type "rbenv" &> /dev/null; then
 fi
 
 ### Installing Ruby and setting default version
-echo "Installing Ruby version $RUBY_VERSION ..."
-rbenv install $RUBY_VERSION
-rbenv global $RUBY_VERSION
+LOCAL_RUBY=$(ruby -v | awk '{print $2}')
+if [[ "$LOCAL_RUBY" < "$RUBY_VERSION" ]] || ! type ruby &> /dev/null; then
+  echo "Installing Ruby version $RUBY_VERSION ..."
+  rbenv install $RUBY_VERSION
+  rbenv rehash
+  rbenv global $RUBY_VERSION
+  source ~/.bash_profile
+fi
+
+### Updating RubyGems to latest version
+LOCAL_RUBYGEMS=$(gem -v)
+if [[ "$LOCAL_RUBYGEMS" < "$GEMS_VERSION" ]]; then
+  echo "Updating the rubygems gem manager to latest version..."
+  gem update --system
+fi
+
+### Installing node.js unless already installed
+if ! type "node" &> /dev/null; then
+  echo "Installing node.js (Rails requires a javascript runtime)"
+  brew install node
+fi
+
+### Installing Rails!!! 
+echo "Installing Rails!..."
+gem install rails
 rbenv rehash
+RAILS_INSTALLED=$(rails -v)
+
 
 
 ### echo for TESTING ONLY ###
 echo "$UNAME"
 echo "$OSX_VERSION"
+echo "$RAILS_INSTALLED"
 #############################
 
 trap - EXIT
