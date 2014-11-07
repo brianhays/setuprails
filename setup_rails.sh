@@ -31,6 +31,7 @@ set -u
 # We're displaying everything on stderr.
 exec 1>&2
 
+RUBY_VERSION=2.1.4
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
@@ -104,17 +105,17 @@ if type "rvm" &> /dev/null; then
   please make sure to fully uninstall RVM and first then re-run the SetupRails installer.
 EOF
   exit 1
-elif type "rbenv" &> /dev/null; then
-  cat <<EOF
-  Well, it seems that you already have rbenv installed on your system! To avoid potential
-  conflicts, this installer will now exit.
-EOF
-  exit 1
-else
+elif ! type "rbenv" &> /dev/null; then
   brew install rbenv ruby-build
   echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
-  source ~/.bash_profile 
+  source ~/.bash_profile
 fi
+
+### Installing Ruby and setting default version
+echo "Installing Ruby version $RUBY_VERSION ..."
+rbenv install $RUBY_VERSION
+rbenv global $RUBY_VERSION
+rbenv rehash
 
 
 ### echo for TESTING ONLY ###
