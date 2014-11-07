@@ -86,8 +86,10 @@ fi
 
 ### Installing Homebrew or updating if already installed
 if ! type "brew" &> /dev/null; then
+  echo "Installing Homebrew..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
+  echo "updating Homebrew..."
   brew update
 fi
 
