@@ -8,7 +8,7 @@
 # If you're viewing this in your web browser, and want to install Ruby on Rails...
 # Open up your terminal and type:
 #
-#    curl (installer site coming soon)
+#    sh <(curl -s https://raw.githubusercontent.com/brianhays/setuprails/master/setup_rails.sh)
 #
 # SetupRails currently supports:
 #   - Mac: OS X 10.9 and above
@@ -101,7 +101,7 @@ if type "rvm" &> /dev/null; then
   cat <<EOF
   Yikes! It appears you already have the Ruby manager 'RVM' installed on your system.
   rbenv is incompatible with RVM. If you want to proceed with installing rbenv,
-  please make sure to fully uninstall RVM and first then re-run the SetupRails installer.
+  please make sure to FULLY uninstall RVM then re-run the SetupRails installer.
 EOF
   exit 1
 elif ! type "rbenv" &> /dev/null; then
@@ -139,13 +139,11 @@ gem install rails --no-ri --no-rdoc
 rbenv rehash
 RAILS_INSTALLED=$(rails -v)
 
-
-
-### echo for TESTING ONLY ###
-echo "$UNAME"
-echo "$OSX_VERSION"
-echo "$RAILS_INSTALLED"
-#############################
+### Installation complete
+echo "#########################"
+echo "Installation Complete!"
+echo "#########################"
+echo "Rails version $RAILS_INSTALLED has been successfully installed on your machine."
 
 trap - EXIT
 }
