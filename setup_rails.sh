@@ -86,7 +86,7 @@ fi
 
 ### Installing Homebrew or updating if already installed
 if ! type "brew" &> /dev/null; then
-  echo "Installing Homebrew (note: you be prompted for your password during install)..."
+  echo "Installing Homebrew (note: you'll be prompted for your password during install)..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   read -p "Press any key to run 'brew doctor' and continue with the SetupRails script..."
   brew doctor
