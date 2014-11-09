@@ -3,7 +3,7 @@
 # This is the SetupRails script!
 # 
 # author: Brian Hays
-# website: (coming soon)
+# website: http://setuprails.com
 #
 # If you're viewing this in your web browser, and want to install Ruby on Rails...
 # Open up your terminal and type:
