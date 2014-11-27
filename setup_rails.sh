@@ -31,8 +31,8 @@ set -u
 # We're displaying everything on stderr.
 exec 1>&2
 
-RUBY_VERSION=2.1.4
-GEMS_VERSION=2.4.2
+RUBY_VERSION=2.1.5
+GEMS_VERSION=2.4.3
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
