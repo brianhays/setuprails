@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # This is the SetupRails script!
-# 
+#
 # author: Brian Hays
 # website: http://setuprails.com
 #
@@ -12,12 +12,12 @@
 #
 # SetupRails currently supports:
 #   - Mac: OS X 10.9 and above
-# 
+#
 # (coming soon = Linux: x86 and x86_64 systems)
 
 # This script is wrapped in a function, so that it won't execute until
 # the whole script is downloaded.
-# This prevents our output overlapping with curl's. That's great news 
+# This prevents our output overlapping with curl's. That's great news
 # because it also means we can't run a partially downloaded script.
 
 setup_rails () {
@@ -32,7 +32,7 @@ set -u
 exec 1>&2
 
 RUBY_VERSION=2.2.2
-GEMS_VERSION=2.4.6
+GEMS_VERSION=2.4.8
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
@@ -133,7 +133,7 @@ if ! type "node" &> /dev/null; then
   brew install node
 fi
 
-### Installing Rails!!! 
+### Installing Rails!!!
 echo "Installing Rails!..."
 gem install rails --no-ri --no-rdoc
 rbenv rehash
