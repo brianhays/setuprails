@@ -31,7 +31,7 @@ set -u
 # We're displaying everything on stderr.
 exec 1>&2
 
-RUBY_VERSION=2.2.2
+RUBY_VERSION=2.2.3
 GEMS_VERSION=2.4.8
 
 UNAME=$(uname)
