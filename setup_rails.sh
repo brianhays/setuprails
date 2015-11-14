@@ -43,7 +43,7 @@ if [ "$UNAME" = "Darwin" ] ; then
   ### OSX ###
   OSX_VERSION=$(sw_vers -productVersion | awk 'BEGIN{FS=".";} {print $2}' )
   if [ "$OSX_VERSION" != "10" -a "$OSX_VERSION" != "9" ] ; then
-    echo "Only OSX versions 9 and above are supported at this time."
+    echo "Only OSX versions 10.9 and above are supported at this time."
     exit 1
   fi
 fi
