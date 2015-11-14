@@ -22,7 +22,6 @@
 
 setup_rails () {
 
-
 ### Now, on to the actual installer...
 
 set -e
@@ -32,20 +31,19 @@ set -u
 exec 1>&2
 
 RUBY_VERSION=2.2.3
-GEMS_VERSION=2.4.8
+GEMS_VERSION=2.5.0
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
-    echo "Sorry, this installer only support Mac OSX at this time."
+    echo "Sorry, this installer only supports Mac OSX at this time."
     exit 1
 fi
-
 
 if [ "$UNAME" = "Darwin" ] ; then
   ### OSX ###
   OSX_VERSION=$(sw_vers -productVersion | awk 'BEGIN{FS=".";} {print $2}' )
   if [ "$OSX_VERSION" != "10" -a "$OSX_VERSION" != "9" ] ; then
-    echo "Only OSX Yosemite and Mavericks are supported at this time."
+    echo "Only OSX versions 9 and above are supported at this time."
     exit 1
   fi
 fi
