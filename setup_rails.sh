@@ -30,8 +30,8 @@ set -u
 # We're displaying everything on stderr.
 exec 1>&2
 
-RUBY_VERSION=2.2.5
-GEMS_VERSION=2.6.4
+RUBY_VERSION=2.3.1
+GEMS_VERSION=2.6.6
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
@@ -42,7 +42,7 @@ fi
 if [ "$UNAME" = "Darwin" ] ; then
   ### OSX ###
   OSX_VERSION=$(sw_vers -productVersion | awk 'BEGIN{FS=".";} {print $2}' )
-  if [ "$OSX_VERSION" != "10" -a "$OSX_VERSION" != "9" ] ; then
+  if [ "$OSX_VERSION" != "11" -a "$OSX_VERSION" != "10" -a "$OSX_VERSION" != "9" ]; then
     echo "Only OSX versions 10.9 and above are supported at this time."
     exit 1
   fi
@@ -112,6 +112,7 @@ fi
 LOCAL_RUBY=$(ruby -v | awk '{print $2}')
 if [[ "$LOCAL_RUBY" < "$RUBY_VERSION" ]] || ! type ruby &> /dev/null; then
   echo "Installing Ruby version $RUBY_VERSION ..."
+  brew upgrade rbenv ruby-build
   rbenv install $RUBY_VERSION
   rbenv rehash
   rbenv global $RUBY_VERSION
