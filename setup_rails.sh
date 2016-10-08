@@ -31,19 +31,16 @@ set -u
 exec 1>&2
 
 RUBY_VERSION=2.3.1
-GEMS_VERSION=2.6.6
+GEMS_VERSION=2.6.7
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
     echo "Sorry, this installer only supports Mac OSX at this time."
     exit 1
-fi
-
-if [ "$UNAME" = "Darwin" ] ; then
-  ### OSX ###
-  OSX_VERSION=$(sw_vers -productVersion | awk 'BEGIN{FS=".";} {print $2}' )
-  if [ "$OSX_VERSION" != "11" -a "$OSX_VERSION" != "10" -a "$OSX_VERSION" != "9" ]; then
-    echo "Only OSX versions 10.9 and above are supported at this time."
+else
+  ### Check Darwin Version ###
+  if [[ "${OSTYPE:6}" < "13" ]]; then
+    echo "Only OSX versions 10.9 (Darwin 13+) and above are supported at this time."
     exit 1
   fi
 fi
