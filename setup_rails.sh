@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This is the SetupRails script!
 #
@@ -6,9 +6,15 @@
 # website: http://setuprails.com
 #
 # If you're viewing this in your web browser, and want to install Ruby on Rails...
-# Open up your terminal and type:
+# First, download the setup_rails.sh file locally via:
 #
-#    sh <(curl -s https://raw.githubusercontent.com/brianhays/setuprails/master/setup_rails.sh)
+#    curl -O https://raw.githubusercontent.com/brianhays/setuprails/master/setup_rails.sh
+# or:
+#    wget https://raw.githubusercontent.com/brianhays/setuprails/master/setup_rails.sh
+#
+# After downloading the file you can run it using the command:
+#
+#    bash setup_rails.sh
 #
 # SetupRails currently supports:
 #   - Mac: OS X 10.9 and above
@@ -30,8 +36,8 @@ set -u
 # We're displaying everything on stderr.
 exec 1>&2
 
-RUBY_VERSION=2.3.1
-GEMS_VERSION=2.6.7
+RUBY_VERSION=2.3.2
+GEMS_VERSION=2.6.8
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
@@ -39,7 +45,7 @@ if [ "$UNAME" != "Darwin" ] ; then
     exit 1
 else
   ### Check Darwin Version ###
-  if [[ "${OSTYPE:6}" < "13" ]]; then
+  if [[ "${OSTYPE:6}" -lt "13" ]]; then
     echo "Only OSX versions 10.9 (Darwin 13+) and above are supported at this time."
     exit 1
   fi
@@ -70,20 +76,20 @@ cat <<EOF
 ##
 ##########################
 EOF
-read -p "Press any key to continue..."
+read -r -p "Press ENTER to continue..."
 
-### Installing command-line-tools unless already installed
+### Installing latest command-line-tools unless already installed
 if [ ! -d "/Library/Developer/CommandLineTools" ]; then
   echo "Installing command-line-tools. Click Install (NOT get XCode) when prompted"
   xcode-select --install
-  read -p "Once the command-line-tools installer completes, Press any key to continue:"
+  read -r -p "Once the command-line-tools installer completes, Press ENTER to continue:"
 fi
 
 ### Installing Homebrew or updating if already installed
 if ! type "brew" &> /dev/null; then
   echo "Installing Homebrew (note: you'll be prompted for your password during install)..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  read -p "Press any key to run 'brew doctor' and continue with the SetupRails script..."
+  read -r -p "Press ENTER to run 'brew doctor' and continue with the SetupRails script..."
   brew doctor
 else
   echo "updating Homebrew..."
@@ -131,6 +137,7 @@ fi
 
 ### Installing Rails!!!
 echo "Installing Rails!..."
+gem install nokogiri -- --use-system-libraries
 gem install rails --no-ri --no-rdoc
 rbenv rehash
 RAILS_INSTALLED=$(rails -v)
