@@ -37,7 +37,7 @@ set -u
 exec 1>&2
 
 RUBY_VERSION=2.4.1
-GEMS_VERSION=2.6.11
+GEMS_VERSION=2.6.12
 
 UNAME=$(uname)
 if [ "$UNAME" != "Darwin" ] ; then
